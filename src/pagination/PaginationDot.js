@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { View, Animated, Easing, TouchableOpacity, ViewPropTypes } from 'react-native';
+import { Animated, Easing, TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
 import styles from './Pagination.style';
 
@@ -12,12 +12,16 @@ export default class PaginationDot extends PureComponent {
         activeOpacity: PropTypes.number,
         carouselRef: PropTypes.object,
         color: PropTypes.string,
-        containerStyle: ViewPropTypes ? ViewPropTypes.style : View.propTypes.style,
+        containerStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
         inactiveColor: PropTypes.string,
-        inactiveStyle: ViewPropTypes ? ViewPropTypes.style : View.propTypes.style,
+        inactiveStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
         index: PropTypes.number,
-        style: ViewPropTypes ? ViewPropTypes.style : View.propTypes.style,
-        tappable: PropTypes.bool
+        style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+        tappable: PropTypes.bool,
+        animatedDuration: PropTypes.number,
+        animatedFriction: PropTypes.number,
+        animatedTension: PropTypes.number,
+        delayPressInDot: PropTypes.number
     };
 
     constructor (props) {
@@ -43,7 +47,7 @@ export default class PaginationDot extends PureComponent {
 
     _animate (toValue = 0) {
         const { animColor, animOpacity, animTransform } = this.state;
-        const { animatedDuration, animatedFriction, animatedTension } = this.props
+        const { animatedDuration, animatedFriction, animatedTension } = this.props;
 
         const commonProperties = {
             toValue,
